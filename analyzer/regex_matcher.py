@@ -20,4 +20,3 @@ class RegexMatcher:
     @staticmethod
     def match_todo(line) -> bool:
         return bool(re.search(pattern=r'# *TODO', string=line.upper()))
-

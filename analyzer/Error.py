@@ -49,8 +49,5 @@ class ErrorLogger:
         self.errors.append(error)
 
     def log(self) -> None:
-
-        # for error in sorted(self.errors, key=lambda x: (x.file_path, x.line, x.code)):
-        # for error in self.errors:
         for error in sorted(self.errors, key=lambda x: (x.file_path, x.line, x.code)):
             print("ERROR:", error)
