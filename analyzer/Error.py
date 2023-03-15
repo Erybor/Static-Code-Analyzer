@@ -9,7 +9,7 @@ class Error:
     text: str = ''
 
     def __str__(self):
-        return f'{self.file_path}: Line {self.line + 1}: {self.code} {self.text}'
+        return f'{self.file_path}: Line {int(self.line) + 1}: {self.code} {self.text}'
 
 
 class ErrorMessage:
@@ -45,9 +45,16 @@ class ErrorLogger:
     def __init__(self):
         self.errors = []
 
-    def add_error(self, error: Error) -> None:
+    def _add_error(self, error: Error) -> None:
         self.errors.append(error)
+
+    def log_error(self, file_path, line, code, name=''):
+        text = ErrorMessage.get_human_message(code, name)
+        self._add_error(Error(file_path, line, code, text))
 
     def log(self) -> None:
         for error in sorted(self.errors, key=lambda x: (x.file_path, x.line, x.code)):
             print("ERROR:", error)
+
+    def clear(self) -> None:
+        self.errors = []
